@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Valentine</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: lightpink;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    #yes {
+      position: absolute;
+      top: 50%;
+      left: 40%;
+      padding: 15px 30px;
+      font-size: 18px;
+      background: purple;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    #no {
+      position: absolute;
+      top: 50%;
+      left: 55%;
+      padding: 15px 30px;
+      font-size: 18px;
+      background: red;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    video {
+      display: none;
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 300px;
+    }
+	
+	footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      padding: 15px;
+      background: rgba(255, 255, 150, 0.5); /* light yellow, 50% */
+      color: red;
+      font-weight: bold;
+      font-size: 16px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Will you be my valentine ? 💖</h1>
+
+  <button id="yes">YES</button>
+  <button id="no">NO</button>
+
+  <video id="vid" controls>
+    <source src="video.mp4" type="video/mp4">
+  </video>
+  
+  <footer id="msg"></footer>
+
+  <script>
+    const noBtn = document.getElementById("no");
+    const yesBtn = document.getElementById("yes");
+    const video = document.getElementById("vid");
+	const msg = document.getElementById("msg");
+
+    let tries = 0;
+
+    noBtn.onmouseover = function () {
+      tries++;
+
+      const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+      const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+
+      if (tries === 1) {
+        msg.innerText = "Really !! ??";
+      } else if (tries === 6) {
+        msg.innerText = "Oh come on !!";
+      } else if (tries === 10) {
+        msg.innerText = "you cant escape !!";
+      } else if (tries > 10 && tries % 5 === 0) {
+        msg.innerText = "Ok! keep trying, you will accept eventually !";
+      }
+    };
+
+    yesBtn.onclick = function () {
+      video.style.display = "block";
+      video.play();
+    };
+  </script>
+
+</body>
+</html>
