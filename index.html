@@ -2,9 +2,17 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Valentine</title>
+  <title>Hey You!!</title>
 
   <style>
+  
+	@font-face {
+    font-family: "Modern Love Grunge";
+    src: url("modernlovegrunge.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+	}
+  
     body {
       margin: 0;
       height: 100vh;
@@ -13,23 +21,31 @@
       background-position: center;  /* center image */
       background-repeat: no-repeat; /* no tiling */
       overflow: hidden;
-      font-family: Arial, sans-serif;
+      font-family: "Modern Love Grunge", sans-serif;
     }
 
+
     h1 {
-      text-align: center;
-      margin-top: 40px;
-    }
+		text-align: left;
+		margin-top: 40px;
+		color: black;
+		font-weight: 1000;
+		font-size: clamp(2rem, 5vw, 4rem);
+		position: relative;
+		text-shadow: 2px 2px 4px white;
+	}
+	
+
 
     #yes {
       position: absolute;
       top: 50%;
-      left: 40%;
+      left: 10%;
       padding: 15px 30px;
       font-size: 18px;
       background: purple;
       color: white;
-      border: none;
+      border: 2px solid white;
       border-radius: 8px;
       cursor: pointer;
     }
@@ -37,15 +53,25 @@
     #no {
       position: absolute;
       top: 50%;
-      left: 55%;
+      left: 25%;
       padding: 15px 30px;
       font-size: 18px;
       background: red;
       color: white;
-      border: none;
+      border: 2px solid white;
       border-radius: 8px;
       cursor: pointer;
     }
+	
+	#gif {
+		display: none;
+		position: absolute;
+		top: 30%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 300px; /* adjust as needed */
+		z-index: 5;   /* above background and other elements */
+	}
 
     video {
       display: none;
@@ -58,28 +84,35 @@
 	
 	footer {
       position: fixed;
-      bottom: 0;
-      width: 100%;
+      bottom: 17px;
+	  left: 0;
+      width: 50%;
       text-align: center;
-      padding: 15px;
-      background: rgba(255, 255, 150, 0.5); /* light yellow, 50% */
+      padding: 30px;
+      background: rgba(255, 255, 150, 0.4); /* light yellow, 50% */
       color: red;
+	  font-family: "Lucida Console", Monospace;
       font-weight: bold;
-      font-size: 16px;
+      font-size: 25px;
+	  box-sizing: border-box;
+	  text-shadow: 2px 2px 4px white;
     }
   </style>
 </head>
 
 <body>
 
-  <h1>Will you be my valentine ? 💖</h1>
+  <h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dear Rishu...<br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Will you be my valentine ? 💖</span></h1>
 
   <button id="yes">YES</button>
   <button id="no">NO</button>
 
-  <video id="vid" controls>
-    <source src="video.mp4" type="video/mp4">
-  </video>
+ <div id="gifContainer" style="display:none; position:absolute; top:50%; left:30%; transform:translate(-50%, -50%);">
+  <img src="Yay.gif" style="width:500px; margin-right:20px;">
+  <img src="Kiss.gif" style="width:300px;">
+</div>
+
+<audio id="bgMusic" src="Joy.m4a" loop></audio>
   
   <footer id="msg"></footer>
 
@@ -88,19 +121,25 @@
     const yesBtn = document.getElementById("yes");
     const video = document.getElementById("vid");
 	const msg = document.getElementById("msg");
+	const music = document.getElementById("bgMusic");
 
     let tries = 0;
 
     noBtn.onmouseover = function () {
       tries++;
 
-      const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-      const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+      const footerHeight = msg.offsetHeight;
+
+  const maxX = window.innerWidth - noBtn.offsetWidth;
+  const maxY = window.innerHeight - footerHeight - noBtn.offsetHeight;
+
+  const x = Math.random() * maxX;
+  const y = Math.random() * maxY;
 
       noBtn.style.left = x + "px";
       noBtn.style.top = y + "px";
 
-      if (tries === 1) {
+      if (tries === 2) {
         msg.innerText = "Really !! ??";
       } else if (tries === 6) {
         msg.innerText = "Oh come on !!";
@@ -112,9 +151,16 @@
     };
 
     yesBtn.onclick = function () {
-      video.style.display = "block";
-      video.play();
-    };
+  // Hide buttons
+  yesBtn.style.display = "none";
+  noBtn.style.display = "none";
+  msg.style.display = "none";
+
+  // Show GIF
+   document.getElementById("gifContainer").style.display = "flex"; // flex for side by side
+   
+   music.play();
+};
   </script>
 
 </body>
